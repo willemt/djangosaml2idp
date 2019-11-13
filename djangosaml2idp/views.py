@@ -149,6 +149,8 @@ class LoginProcessView(LoginRequiredMixin, IdPHandlerViewMixin, View):
         identity = self.get_identity(processor, request.user, sp_config)
 
         req_authn_context = req_info.message.requested_authn_context or PASSWORD
+        req_authn_context = req_authn_context.authn_context_class_ref[0].text
+
         AUTHN_BROKER = AuthnBroker()
         AUTHN_BROKER.add(authn_context_class_ref(req_authn_context), "")
 
